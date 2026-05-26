@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أساس · بطاقات تهنئة العيد</title>
+  <meta name="description" content="صمم بطاقة تهنئة عيد خاصة بك من أساس" />
+
+  <!-- Google Fonts: refined Arabic typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@300;400;500;700;800&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─────────────── DESIGN TOKENS ─────────────── */
+    :root {
+      --bg:            #f4efe5;   /* warm cream */
+      --bg-soft:       #ebe4d6;
+      --surface:       #ffffff;
+      --ink:           #1a1714;   /* near black */
+      --ink-soft:      #4a443d;
+      --muted:         #8a8175;
+      --border:        #ddd4c2;
+      --border-soft:   #ece5d6;
+      --gold:          #a8854a;   /* deep, restrained gold accent */
+      --gold-soft:     #c9a972;
+      --shadow-sm:     0 1px 2px rgba(26, 23, 20, 0.04);
+      --shadow-md:     0 6px 24px rgba(26, 23, 20, 0.08);
+      --shadow-lg:     0 24px 60px rgba(26, 23, 20, 0.12);
+      --radius-sm:     8px;
+      --radius-md:     14px;
+      --radius-lg:     22px;
+      --radius-pill:   999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle paper-grain background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(168, 133, 74, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 80% 90%, rgba(168, 133, 74, 0.04) 0%, transparent 40%);
+      z-index: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ─────────────── LAYOUT ─────────────── */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────── NAV ─────────────── */
+    .nav {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border-soft);
+      background: rgba(244, 239, 229, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      background: var(--ink);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .brand-mark img { width: 70%; height: auto; display: block; }
+    .brand-text {
+      font-family: 'Reem Kufi', 'Tajawal', sans-serif;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: -3px;
+      font-weight: 400;
+    }
+    .nav-meta {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-meta .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      padding: 64px 0 36px;
+      text-align: center;
+      position: relative;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      padding: 6px 14px;
+      border: 1px solid rgba(168, 133, 74, 0.3);
+      border-radius: var(--radius-pill);
+      background: rgba(168, 133, 74, 0.06);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    h1.hero-title {
+      font-family: 'Amiri', serif;
+      font-weight: 700;
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+    h1.hero-title em {
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--ink-soft);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Decorative divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 28px auto 0;
+      max-width: 220px;
+      color: var(--gold);
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to left, transparent, var(--gold-soft), transparent);
+    }
+    .divider svg { width: 18px; height: 18px; }
+
+    /* ─────────────── MAIN GRID ─────────────── */
+    .studio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 36px 0 80px;
+      align-items: start;
+    }
+    @media (max-width: 920px) {
+      .studio { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ─────────────── PANELS ─────────────── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (max-width: 540px) {
+      .panel { padding: 22px; }
+    }
+
+    .step {
+      margin-bottom: 36px;
+    }
+    .step:last-child { margin-bottom: 0; }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Tajawal', sans-serif;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-family: 'Reem Kufi', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .step-hint {
+      margin-right: auto;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ─────────────── TEMPLATE GALLERY ─────────────── */
+    .templates {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 540px) {
+      .templates { grid-template-columns: repeat(2, 1fr); }
+    }
+    .template {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg-soft);
+      border: 2px solid transparent;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .template img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .template:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .template:hover img { transform: scale(1.04); }
+    .template.active {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(168, 133, 74, 0.15), var(--shadow-md);
+    }
+    .template .check {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 26px; height: 26px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    .template.active .check { display: flex; }
+    .template .check svg { width: 14px; height: 14px; }
+
+    .template-label {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(26, 23, 20, 0.75);
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      backdrop-filter: blur(6px);
+      font-weight: 500;
+    }
+
+    /* ─────────────── INPUT ─────────────── */
+    .input-group {
+      position: relative;
+    }
+    .input-label {
+      display: block;
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .input-field {
+      width: 100%;
+      padding: 16px 20px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      direction: rtl;
+      text-align: right;
+    }
+    .input-field:focus {
+      border-color: var(--gold);
+      background: var(--surface);
+    }
+    .input-field::placeholder {
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .input-counter {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: left;
+      direction: ltr;
+    }
+
+    /* ─────────────── PREVIEW PANEL ─────────────── */
+    .preview-panel {
+      position: sticky;
+      top: 100px;
+    }
+    @media (max-width: 920px) {
+      .preview-panel { position: static; }
+    }
+    .preview-frame {
+      position: relative;
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 18px;
+      aspect-ratio: 4/5;
+    }
+    #cardCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .preview-loading {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .preview-loading .spinner {
+      width: 28px; height: 28px;
+      border: 2.5px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─────────────── BUTTONS ─────────────── */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      padding: 16px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-md);
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-primary:hover {
+      background: #000;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+      flex: 0 0 auto;
+      padding: 16px 18px;
+    }
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      background: var(--bg);
+    }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* ─────────────── FOOTER ─────────────── */
+    .footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border-soft);
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    .footer strong { color: var(--ink-soft); font-weight: 500; }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 14px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .toast svg { width: 16px; height: 16px; color: var(--gold-soft); }
+
+    /* hidden helper */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="assets/logo.png" alt="أساس" />
+        </div>
+        <div>
+          <div class="brand-text">أساس</div>
+          <div class="brand-sub">ASAAS</div>
+        </div>
+      </div>
+      <div class="nav-meta">
+        <span class="dot"></span>
+        <span>استوديو بطاقات العيد</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">عيدية أساس · ١٤٤٧هـ</span>
+      <h1 class="hero-title">صمّم بطاقة <em>عيدك</em> الخاصة</h1>
+      <p class="hero-sub">اختر إحدى البطاقات الجاهزة، وأضف اسمك، ثم حمّل بطاقتك وشاركها مع زملائك وأحبائك بأناقة تليق بالمناسبة.</p>
+      <div class="divider" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <main class="container">
+    <div class="studio">
+
+      <!-- LEFT: Controls -->
+      <div class="panel">
+
+        <!-- Step 1: Templates -->
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">١</div>
+            <div class="step-title">اختر التصميم</div>
+            <div class="step-hint">٥ تصاميم</div>
+          </div>
+          <div class="templates" id="templateGrid">
+            <!-- Templates injected via JS -->
+          </div>
+        </div>
+
+        <!-- Step 2: Name -->
+        <div class="step">
+          <div class="step-header">
+            <div class="step-num">٢</div>
+            <div class="step-title">اكتب اسمك</div>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="nameInput">الاسم الذي سيظهر على البطاقة</label>
+            <input
+              type="text"
+              id="nameInput"
+              class="input-field"
+              placeholder="مثال: محمد بن سالم"
+              maxlength="40"
+              autocomplete="off"
+            />
+            <div class="input-counter" id="nameCounter">0 / 40</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Live Preview -->
+      <div class="preview-panel">
+        <div class="preview-frame">
+          <div class="preview-loading" id="previewLoading">
+            <div class="spinner"></div>
+            <div>جارٍ تجهيز التصميم...</div>
+          </div>
+          <canvas id="cardCanvas" width="1080" height="1350" aria-label="معاينة البطاقة"></canvas>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="downloadBtn" disabled>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3V15M12 15L8 11M12 15L16 11M5 21H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            تحميل البطاقة
+          </button>
+          <button class="btn btn-ghost" id="resetBtn" title="إعادة تعيين">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 12C3 7.029 7.029 3 12 3C15.27 3 18.13 4.745 19.708 7.353M21 4V8H17M21 12C21 16.971 16.971 21 12 21C8.73 21 5.87 19.255 4.292 16.647M3 20V16H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <strong>أساس · ASAAS</strong> &nbsp;·&nbsp; كل عام وأنتم بخير
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span id="toastMsg">تم تحميل البطاقة بنجاح</span>
+  </div>
+
+  <script>
+    // ─────────────── DATA ───────────────
+    const TEMPLATES = [
+      { id: 't1', src: 'assets/template1.jpg', label: 'الحصن', textColor: '#ffffff', logoVariant: 'white' },
+      { id: 't2', src: 'assets/template2.jpg', label: 'الرزحة',  textColor: '#ffffff', logoVariant: 'white' },
+      { id: 't3', src: 'assets/template3.jpg', label: 'الورد',   textColor: '#ffffff', logoVariant: 'white' },
+      { id: 't4', src: 'assets/template4.jpg', label: 'التراث',  textColor: '#ffffff', logoVariant: 'white' },
+      { id: 't5', src: 'assets/template5.jpg', label: 'العيدية', textColor: '#ffffff', logoVariant: 'white' },
+    ];
+
+    const LOGO_SRC = 'assets/logo.png';
+
+    // ─────────────── STATE ───────────────
+    let state = {
+      templateId: TEMPLATES[0].id,
+      name: '',
+      logoImg: null,
+      templateImg: null,
+      fontsLoaded: false,
+    };
+
+    // ─────────────── ELEMENTS ───────────────
+    const $ = (id) => document.getElementById(id);
+    const grid = $('templateGrid');
+    const nameInput = $('nameInput');
+    const nameCounter = $('nameCounter');
+    const canvas = $('cardCanvas');
+    const ctx = canvas.getContext('2d');
+    const downloadBtn = $('downloadBtn');
+    const resetBtn = $('resetBtn');
+    const previewLoading = $('previewLoading');
+    const toast = $('toast');
+    const toastMsg = $('toastMsg');
+
+    // ─────────────── RENDER TEMPLATE GRID ───────────────
+    function renderTemplates() {
+      grid.innerHTML = TEMPLATES.map((t, i) => `
+        <div class="template ${t.id === state.templateId ? 'active' : ''}" data-id="${t.id}">
+          <img src="${t.src}" alt="${t.label}" loading="lazy" />
+          <div class="check">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="template-label">${t.label}</div>
+        </div>
+      `).join('');
+      grid.querySelectorAll('.template').forEach(el => {
+        el.addEventListener('click', () => selectTemplate(el.dataset.id));
+      });
+    }
+
+    async function selectTemplate(id) {
+      if (id === state.templateId) return;
+      state.templateId = id;
+      grid.querySelectorAll('.template').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === id);
+      });
+      await loadTemplateImage();
+      drawCard();
+    }
+
+    // ─────────────── IMAGE LOADING ───────────────
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    async function loadLogo() {
+      state.logoImg = await loadImage(LOGO_SRC);
+    }
+    async function loadTemplateImage() {
+      const t = TEMPLATES.find(t => t.id === state.templateId);
+      state.templateImg = await loadImage(t.src);
+    }
+
+    // ─────────────── CANVAS DRAW ───────────────
+    function drawCard() {
+      const W = canvas.width;   // 1080
+      const H = canvas.height;  // 1350
+      const t = TEMPLATES.find(t => t.id === state.templateId);
+
+      // Background fill (in case image fails)
+      ctx.fillStyle = '#1a1714';
+      ctx.fillRect(0, 0, W, H);
+
+      // Draw template image as cover
+      if (state.templateImg) {
+        const img = state.templateImg;
+        const imgRatio = img.width / img.height;
+        const canvasRatio = W / H;
+        let sx, sy, sw, sh;
+        if (imgRatio > canvasRatio) {
+          // image is wider; crop sides
+          sh = img.height;
+          sw = sh * canvasRatio;
+          sx = (img.width - sw) / 2;
+          sy = 0;
+        } else {
+          // image is taller; crop top/bottom
+          sw = img.width;
+          sh = sw / canvasRatio;
+          sx = 0;
+          sy = (img.height - sh) / 2;
+        }
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+      }
+
+      // Dark gradient overlays — top (for logo) and bottom (for text)
+      // Top
+      const topGrad = ctx.createLinearGradient(0, 0, 0, H * 0.30);
+      topGrad.addColorStop(0, 'rgba(0,0,0,0.55)');
+      topGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, 0, W, H * 0.30);
+
+      // Bottom (stronger, for greeting text)
+      const botGrad = ctx.createLinearGradient(0, H * 0.40, 0, H);
+      botGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      botGrad.addColorStop(0.5, 'rgba(0,0,0,0.55)');
+      botGrad.addColorStop(1, 'rgba(0,0,0,0.85)');
+      ctx.fillStyle = botGrad;
+      ctx.fillRect(0, H * 0.40, W, H * 0.60);
+
+      // ─────── LOGO at top ───────
+      if (state.logoImg) {
+        const logo = state.logoImg;
+        const targetW = 280;
+        const targetH = (logo.height / logo.width) * targetW;
+        ctx.drawImage(logo, (W - targetW) / 2, 70, targetW, targetH);
+      }
+
+      // ─────── GREETING TEXT ───────
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.direction = 'rtl';
+
+      // Main greeting "عيدكم مبارك"
+      ctx.font = 'bold 110px "Amiri", serif';
+      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetY = 2;
+      ctx.fillText('عيدكم مبارك', W / 2, H - 360);
+
+      // Secondary "كل عام وأنتم بخير"
+      ctx.shadowBlur = 12;
+      ctx.font = '500 44px "Tajawal", sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.fillText('كل عام وأنتم بخير', W / 2, H - 280);
+
+      // Reset shadow for line
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Decorative separator line with diamond
+      const lineY = H - 220;
+      const lineW = 280;
+      const cx = W / 2;
+      ctx.strokeStyle = 'rgba(201, 169, 114, 0.85)';  // soft gold
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(cx - lineW/2, lineY);
+      ctx.lineTo(cx - 20, lineY);
+      ctx.moveTo(cx + 20, lineY);
+      ctx.lineTo(cx + lineW/2, lineY);
+      ctx.stroke();
+
+      // Center diamond
+      ctx.fillStyle = 'rgba(201, 169, 114, 0.95)';
+      ctx.beginPath();
+      ctx.moveTo(cx, lineY - 7);
+      ctx.lineTo(cx + 7, lineY);
+      ctx.lineTo(cx, lineY + 7);
+      ctx.lineTo(cx - 7, lineY);
+      ctx.closePath();
+      ctx.fill();
+
+      // ─────── EMPLOYEE NAME ───────
+      const displayName = state.name.trim() || 'اسمك هنا';
+      const isPlaceholder = !state.name.trim();
+
+      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowBlur = 16;
+      ctx.shadowOffsetY = 2;
+      ctx.font = `${isPlaceholder ? 'normal' : '700'} 56px "Amiri", serif`;
+      ctx.fillStyle = isPlaceholder ? 'rgba(255,255,255,0.45)' : '#ffffff';
+      ctx.fillText(displayName, W / 2, H - 130);
+
+      // "من" label above name in subtle gold
+      ctx.shadowBlur = 8;
+      ctx.font = '500 26px "Tajawal", sans-serif';
+      ctx.fillStyle = 'rgba(201, 169, 114, 0.95)';
+      ctx.fillText('— مع أطيب التهاني من —', W / 2, H - 175);
+
+      // Reset shadows
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Hide loading once first draw is done
+      previewLoading.style.display = 'none';
+
+      // Enable download
+      downloadBtn.disabled = false;
+    }
+
+    // ─────────────── DEBOUNCE FOR NAME ───────────────
+    let nameDebounce;
+    nameInput.addEventListener('input', (e) => {
+      state.name = e.target.value;
+      nameCounter.textContent = `${e.target.value.length} / 40`;
+      clearTimeout(nameDebounce);
+      nameDebounce = setTimeout(() => drawCard(), 80);
+    });
+
+    // ─────────────── DOWNLOAD ───────────────
+    downloadBtn.addEventListener('click', () => {
+      // Use the canvas at full resolution
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const safeName = (state.name.trim() || 'employee').replace(/\s+/g, '_');
+        a.href = url;
+        a.download = `Eid_Card_${safeName}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('تم تحميل البطاقة بنجاح');
+      }, 'image/png', 0.95);
+    });
+
+    // ─────────────── RESET ───────────────
+    resetBtn.addEventListener('click', () => {
+      nameInput.value = '';
+      state.name = '';
+      nameCounter.textContent = '0 / 40';
+      state.templateId = TEMPLATES[0].id;
+      renderTemplates();
+      loadTemplateImage().then(drawCard);
+      nameInput.focus();
+    });
+
+    // ─────────────── TOAST ───────────────
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    // ─────────────── INIT ───────────────
+    async function init() {
+      renderTemplates();
+
+      // Wait for both fonts to be ready before drawing text
+      try {
+        await document.fonts.load('bold 110px "Amiri"');
+        await document.fonts.load('500 44px "Tajawal"');
+        await document.fonts.load('500 26px "Tajawal"');
+        await document.fonts.ready;
+      } catch (e) {
+        console.warn('Font load wait failed, continuing:', e);
+      }
+
+      // Load logo + first template image
+      await Promise.all([loadLogo(), loadTemplateImage()]);
+      drawCard();
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
