@@ -724,96 +724,120 @@
         ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
       }
 
-      // Dark gradient overlays — top (for logo) and bottom (for text)
-      // Top
-      const topGrad = ctx.createLinearGradient(0, 0, 0, H * 0.30);
-      topGrad.addColorStop(0, 'rgba(0,0,0,0.55)');
-      topGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      // ─── Top gradient: covers the text area for readability ───
+      const topGrad = ctx.createLinearGradient(0, 0, 0, H * 0.58);
+      topGrad.addColorStop(0,    'rgba(0,0,0,0.60)');
+      topGrad.addColorStop(0.4,  'rgba(0,0,0,0.45)');
+      topGrad.addColorStop(0.75, 'rgba(0,0,0,0.20)');
+      topGrad.addColorStop(1,    'rgba(0,0,0,0)');
       ctx.fillStyle = topGrad;
-      ctx.fillRect(0, 0, W, H * 0.30);
+      ctx.fillRect(0, 0, W, H * 0.58);
 
-      // Bottom (stronger, for greeting text)
-      const botGrad = ctx.createLinearGradient(0, H * 0.40, 0, H);
+      // ─── Bottom gradient: small, for footer line ───
+      const botGrad = ctx.createLinearGradient(0, H * 0.82, 0, H);
       botGrad.addColorStop(0, 'rgba(0,0,0,0)');
-      botGrad.addColorStop(0.5, 'rgba(0,0,0,0.55)');
-      botGrad.addColorStop(1, 'rgba(0,0,0,0.85)');
+      botGrad.addColorStop(1, 'rgba(0,0,0,0.72)');
       ctx.fillStyle = botGrad;
-      ctx.fillRect(0, H * 0.40, W, H * 0.60);
+      ctx.fillRect(0, H * 0.82, W, H * 0.18);
 
-      // ─────── LOGO at top ───────
+      // ─── LOGO: top-left corner ───
       if (state.logoImg) {
         const logo = state.logoImg;
-        const targetW = 280;
+        const targetW = 230;
         const targetH = (logo.height / logo.width) * targetW;
-        ctx.drawImage(logo, (W - targetW) / 2, 70, targetW, targetH);
+        ctx.drawImage(logo, 60, 65, targetW, targetH);
       }
 
-      // ─────── GREETING TEXT ───────
-      ctx.fillStyle = '#ffffff';
+      // ─── GREETING TEXT ───
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
-      ctx.direction = 'rtl';
 
-      // Main greeting "عيدكم مبارك"
-      ctx.font = 'bold 110px "Amiri", serif';
-      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      const greetY = 340;
+
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
       ctx.shadowBlur = 20;
       ctx.shadowOffsetY = 2;
-      ctx.fillText('عيدكم مبارك', W / 2, H - 360);
+      ctx.font = 'bold 92px "Amiri", serif';
+      ctx.direction = 'rtl';
 
-      // Secondary "كل عام وأنتم بخير"
-      ctx.shadowBlur = 12;
-      ctx.font = '500 44px "Tajawal", sans-serif';
-      ctx.fillStyle = 'rgba(255,255,255,0.92)';
-      ctx.fillText('كل عام وأنتم بخير', W / 2, H - 280);
+      // Layer 1: orange tashkeel (drawn first, underneath)
+      ctx.fillStyle = '#d6953a';
+      ctx.fillText('كُلَّ عَامٍ وَأَنْتُمْ بِخَيْر', W / 2, greetY);
 
-      // Reset shadow for line
+      // Layer 2: white plain text on top — covers letter bodies but
+      // leaves the colored tashkeel marks visible above the baseline
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('كل عام وأنتم بخير', W / 2, greetY);
+
+      // ─── EID MUBARAK subtitle ───
+      ctx.shadowBlur = 10;
+      ctx.font = '500 32px "Tajawal", sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.direction = 'ltr';
+      if ('letterSpacing' in ctx) {
+        const prevLS = ctx.letterSpacing;
+        ctx.letterSpacing = '7px';
+        // small visual offset because tracking adds width to the right
+        ctx.fillText('EID MUBARAK', W / 2 + 14, greetY + 65);
+        ctx.letterSpacing = prevLS;
+      } else {
+        ctx.fillText('E I D   M U B A R A K', W / 2, greetY + 65);
+      }
+      ctx.direction = 'rtl';
+
+      // ─── Two decorative dots ───
       ctx.shadowBlur = 0;
       ctx.shadowOffsetY = 0;
+      const dotY = greetY + 120;
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.beginPath(); ctx.arc(W/2 - 16, dotY, 6.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.beginPath(); ctx.arc(W/2 + 16, dotY, 6.5, 0, Math.PI * 2); ctx.fill();
 
-      // Decorative separator line with diamond
-      const lineY = H - 220;
-      const lineW = 280;
-      const cx = W / 2;
-      ctx.strokeStyle = 'rgba(201, 169, 114, 0.85)';  // soft gold
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(cx - lineW/2, lineY);
-      ctx.lineTo(cx - 20, lineY);
-      ctx.moveTo(cx + 20, lineY);
-      ctx.lineTo(cx + lineW/2, lineY);
-      ctx.stroke();
-
-      // Center diamond
-      ctx.fillStyle = 'rgba(201, 169, 114, 0.95)';
-      ctx.beginPath();
-      ctx.moveTo(cx, lineY - 7);
-      ctx.lineTo(cx + 7, lineY);
-      ctx.lineTo(cx, lineY + 7);
-      ctx.lineTo(cx - 7, lineY);
-      ctx.closePath();
-      ctx.fill();
-
-      // ─────── EMPLOYEE NAME ───────
+      // ─── EMPLOYEE NAME (in upper portion, below the dots) ───
       const displayName = state.name.trim() || 'اسمك هنا';
       const isPlaceholder = !state.name.trim();
 
-      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
       ctx.shadowBlur = 16;
       ctx.shadowOffsetY = 2;
       ctx.font = `${isPlaceholder ? 'normal' : '700'} 56px "Amiri", serif`;
-      ctx.fillStyle = isPlaceholder ? 'rgba(255,255,255,0.45)' : '#ffffff';
-      ctx.fillText(displayName, W / 2, H - 130);
+      ctx.fillStyle = isPlaceholder ? 'rgba(255,255,255,0.50)' : '#ffffff';
+      ctx.fillText(displayName, W / 2, greetY + 235);
 
-      // "من" label above name in subtle gold
+      // ─── FOOTER: ●  @asaasoman  |  www.asaas.om ───
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
       ctx.shadowBlur = 8;
+      ctx.shadowOffsetY = 1;
       ctx.font = '500 26px "Tajawal", sans-serif';
-      ctx.fillStyle = 'rgba(201, 169, 114, 0.95)';
-      ctx.fillText('— مع أطيب التهاني من —', W / 2, H - 175);
+      ctx.direction = 'ltr';
 
-      // Reset shadows
+      const footerY = H - 50;
+      const handleText = '@asaasoman';
+      const urlText = 'www.asaas.om';
+      const sep = '    |    ';
+      const dot = '●  ';
+
+      // Measure each segment so we can color the dot separately
+      ctx.textAlign = 'left';
+      const dotW = ctx.measureText(dot).width;
+      const restText = handleText + sep + urlText;
+      const restW = ctx.measureText(restText).width;
+      const startX = (W - (dotW + restW)) / 2;
+
+      // Orange bullet
+      ctx.fillStyle = '#d6953a';
+      ctx.fillText(dot, startX, footerY);
+
+      // White handle + separator + URL
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillText(restText, startX + dotW, footerY);
+
+      // Reset
+      ctx.textAlign = 'center';
       ctx.shadowBlur = 0;
       ctx.shadowOffsetY = 0;
+      ctx.direction = 'rtl';
 
       // Hide loading once first draw is done
       previewLoading.style.display = 'none';
