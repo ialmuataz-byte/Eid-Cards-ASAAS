@@ -580,7 +580,7 @@
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 3V15M12 15L8 11M12 15L16 11M5 21H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            تحميل البطاقة
+            حفظ البطاقة
           </button>
           <button class="btn btn-ghost" id="resetBtn" title="إعادة تعيين">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -757,15 +757,8 @@
       ctx.shadowOffsetY = 2;
       ctx.font = 'bold 92px "Amiri", serif';
       ctx.direction = 'rtl';
-
-      // Layer 1: blue tashkeel (drawn first, underneath)
-      ctx.fillStyle = ACCENT_BLUE;
-      ctx.fillText('كُلُّ عَامٍ وأَنْتُمْ بِخَير', W / 2, greetY);
-
-      // Layer 2: white plain text on top — covers letter bodies but
-      // leaves the colored tashkeel marks visible above the baseline
       ctx.fillStyle = '#ffffff';
-      ctx.fillText('كل عام وأنتم بخير', W / 2, greetY);
+      ctx.fillText('كُلُّ عَامٍ وأَنْتُمْ بِخَير', W / 2, greetY);
 
       // ─── EID MUBARAK subtitle (with breathing room below Arabic) ───
       ctx.shadowBlur = 10;
@@ -853,21 +846,51 @@
       nameDebounce = setTimeout(() => drawCard(), 80);
     });
 
-    // ─────────────── DOWNLOAD ───────────────
+    // ─────────────── DOWNLOAD / SAVE ───────────────
+    function isMobileDevice() {
+      return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+          || (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent)); // iPadOS
+    }
+
     downloadBtn.addEventListener('click', () => {
-      // Use the canvas at full resolution
-      canvas.toBlob((blob) => {
+      canvas.toBlob(async (blob) => {
         if (!blob) return;
+        const safeName = (state.name.trim() || 'employee').replace(/\s+/g, '_');
+        const filename = `Eid_Card_${safeName}.png`;
+        const file = new File([blob], filename, { type: 'image/png' });
+
+        // On mobile, prefer Web Share API so the OS share sheet lets the user
+        // pick "Save Image" → goes directly to Photos (not Files).
+        if (
+          isMobileDevice() &&
+          navigator.canShare &&
+          navigator.canShare({ files: [file] })
+        ) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'بطاقة العيد',
+              text: 'كل عام وأنتم بخير',
+            });
+            showToast('تم حفظ البطاقة بنجاح');
+            return;
+          } catch (err) {
+            // User cancelled the share sheet — do nothing, respect their choice.
+            if (err && err.name === 'AbortError') return;
+            // Any other error: fall through to download fallback below.
+          }
+        }
+
+        // Desktop, or mobile fallback when Share API can't handle files.
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        const safeName = (state.name.trim() || 'employee').replace(/\s+/g, '_');
         a.href = url;
-        a.download = `Eid_Card_${safeName}.png`;
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('تم تحميل البطاقة بنجاح');
+        showToast('تم حفظ البطاقة بنجاح');
       }, 'image/png', 0.95);
     });
 
